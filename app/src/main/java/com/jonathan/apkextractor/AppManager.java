@@ -1,5 +1,6 @@
 package com.jonathan.apkextractor;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -43,7 +44,7 @@ public class AppManager {
     }
 
     @SuppressLint("InflateParams")
-    public static void showAppInfo(final Activity context, final OnMessageListener listener, final AppEntry appInfo) {
+    public static void showAppInfo(final Activity context, final PermissionHelper permissionHelper, final OnMessageListener listener, final AppEntry appInfo) {
         PackageInfo info;
         try {
             info = context.getPackageManager().getPackageInfo(appInfo.getApplicationInfo().packageName, 0);
@@ -69,24 +70,60 @@ public class AppManager {
                 }).setPositiveButton(R.string.backup, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                backupApk(context, listener, appInfo);
+                backupApk(context, permissionHelper, listener, appInfo);
             }
         })
                 .setNegativeButton(R.string.share, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        shareApk(context, listener, appInfo);
+                        shareApk(context, permissionHelper, listener, appInfo);
                     }
                 }).show();
     }
 
 
-    public static void backupApk(final Activity context,  final OnMessageListener listener, final AppEntry appInfo) {
-        new BackupApkTask(context, listener).execute(appInfo);
+    public static void backupApk(final Activity context, PermissionHelper permissionHelper, final OnMessageListener listener, final AppEntry appInfo) {
+        permissionHelper.checkOrAskPermissions(2, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionHelper.PermissionListener() {
+            @Override
+            public void onPermissionsAllowed(int requestCode, String[] permissions) {
+                new BackupApkTask(context, listener).execute(appInfo);
+            }
+
+            @Override
+            public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
+                listener.onMessage(
+                        context.getResources().getString(R.string.permission_error_message),
+                        context.getResources().getString(R.string.action_settings),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showAppSettingsScreen(context);
+                            }
+                        });
+            }
+        });
     }
 
-    public static void shareApk(final Activity context, final OnMessageListener listener, final AppEntry appInfo) {
-        new ShareApkTask(context, listener).execute(appInfo);
+    public static void shareApk(final Activity context, PermissionHelper permissionHelper, final OnMessageListener listener, final AppEntry appInfo) {
+        permissionHelper.checkOrAskPermissions(2, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionHelper.PermissionListener() {
+            @Override
+            public void onPermissionsAllowed(int requestCode, String[] permissions) {
+                new ShareApkTask(context, listener).execute(appInfo);
+            }
+
+            @Override
+            public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
+                listener.onMessage(
+                        context.getResources().getString(R.string.permission_error_message),
+                        context.getResources().getString(R.string.action_settings),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showAppSettingsScreen(context);
+                            }
+                        });
+            }
+        });
     }
 
     /**

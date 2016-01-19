@@ -1,6 +1,5 @@
 package com.jonathan.apkextractor;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +27,7 @@ import com.jonathan.apkextractor.utils.ViewUtils;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<List<AppEntry>>, AppsInfoAdapter.OnAppInteractionListener, OnMessageListener, PermissionHelper.PermissionListener {
+        LoaderManager.LoaderCallbacks<List<AppEntry>>, AppsInfoAdapter.OnAppInteractionListener, OnMessageListener {
 
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
@@ -45,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements
     private boolean mRestoreSystemAppsState;
 
     private PermissionHelper mPermissionHelper;
-
-    private boolean mIsPermissionAllowed = false;
 
     //TODO add loading and empty state
     @Override
@@ -71,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         mRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent);
 
         //Small hack, SwipeRefreshLayout wont show the indicator if it haven't
-        //measured itself, with this I show the indicator after a mall delay,
+        //measured itself, with this I show the indicator after a small delay,
         //so I'm sure it's measured.
         mRefreshLayout.postDelayed(new Runnable() {
             @Override
@@ -129,19 +126,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAppClick(final AppEntry appInfo) {
-        if (mIsPermissionAllowed) {
-            AppManager.showAppInfo(this, this, appInfo);
-        } else {
-            onMessage(
-                    getResources().getString(R.string.permission_error_message),
-                    getResources().getString(R.string.app_name),
-                    new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AppManager.showAppSettingsScreen(MainActivity.this);
-                }
-            });
-        }
+        AppManager.showAppInfo(this, mPermissionHelper, this, appInfo);
     }
 
     @Override
@@ -197,34 +182,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onPermissionsAllowed(int requestCode, String[] permissions) {
-        switch (requestCode) {
-            case 897:
-                mIsPermissionAllowed = true;
-                break;
-        }
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-            case 897:
-                mIsPermissionAllowed = false;
-                break;
-        }
-    }
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mPermissionHelper.onRequestPermissionResult(requestCode, permissions, grantResults);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mPermissionHelper.checkOrAskPermissions(
-                897,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                this);
     }
 }

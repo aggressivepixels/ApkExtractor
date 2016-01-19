@@ -8,6 +8,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
 import android.util.Log;
 
+/**
+ * Copyright (c) 2016 Alexandre Piveteau.
+ * This file is part of the Documents project, and all rights are kept by his/its authors.
+ */
 public class PermissionHelper {
 
     /**

@@ -1,6 +1,5 @@
 package com.jonathan.apkextractor;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -82,48 +81,12 @@ public class AppManager {
     }
 
 
-    public static void backupApk(final Activity context, final OnMessageListener listener, final AppEntry appInfo) {
-        PermissionHelper.getInstance(context).checkOrAskPermissions(569, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionHelper.PermissionListener() {
-            @Override
-            public void onPermissionsAllowed(int requestCode, String[] permissions) {
-                new BackupApkTask(context, listener).execute(appInfo);
-            }
-
-            @Override
-            public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
-                listener.onMessage(
-                        context.getResources().getString(R.string.permission_error_message),
-                        context.getResources().getString(R.string.action_settings),
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAppSettingsScreen(context);
-                            }
-                        });
-            }
-        });
+    public static void backupApk(final Activity context,  final OnMessageListener listener, final AppEntry appInfo) {
+        new BackupApkTask(context, listener).execute(appInfo);
     }
 
     public static void shareApk(final Activity context, final OnMessageListener listener, final AppEntry appInfo) {
-        PermissionHelper.getInstance(context).checkOrAskPermissions(569, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionHelper.PermissionListener() {
-            @Override
-            public void onPermissionsAllowed(int requestCode, String[] permissions) {
-                new ShareApkTask(context, listener).execute(appInfo);
-            }
-
-            @Override
-            public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
-                listener.onMessage(
-                        context.getResources().getString(R.string.permission_error_message),
-                        context.getResources().getString(R.string.action_settings),
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showAppSettingsScreen(context);
-                            }
-                        });
-            }
-        });
+        new ShareApkTask(context, listener).execute(appInfo);
     }
 
     /**

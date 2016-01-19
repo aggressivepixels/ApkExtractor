@@ -1,7 +1,9 @@
 package com.jonathan.apkextractor;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -42,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private boolean mRestoreSystemAppsState;
 
+    private PermissionHelper mPermissionHelper;
+
+    private boolean mIsPermissionAllowed = false;
+
     //TODO add loading and empty state
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         mRestoreSystemAppsState = true;
+
+        mPermissionHelper = PermissionHelper.getInstance(this);
 
         Toolbar toolbar = ViewUtils.findViewById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -121,7 +129,19 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAppClick(final AppEntry appInfo) {
-        AppManager.showAppInfo(this, this, appInfo);
+        if (mIsPermissionAllowed) {
+            AppManager.showAppInfo(this, this, appInfo);
+        } else {
+            onMessage(
+                    getResources().getString(R.string.permission_error_message),
+                    getResources().getString(R.string.app_name),
+                    new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AppManager.showAppSettingsScreen(MainActivity.this);
+                }
+            });
+        }
     }
 
     @Override
@@ -178,10 +198,33 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onPermissionsAllowed(int requestCode, String[] permissions) {
-        //No op
+        switch (requestCode) {
+            case 897:
+                mIsPermissionAllowed = true;
+                break;
+        }
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 897:
+                mIsPermissionAllowed = false;
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mPermissionHelper.onRequestPermissionResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPermissionHelper.checkOrAskPermissions(
+                897,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                this);
     }
 }

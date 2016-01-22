@@ -16,4 +16,14 @@
     <string name="error_sharing_app">Error sharing %s</string>
     <string name="error_getting_app_info">Error getting app\'s information</string>
     <string name="permission_error_message">To backup apps, allow the permission to read external storage</string>
+    <string name="licenses">Licenses</string>
+    <string name="app_description">Backup and share APKs directly from your device!</string>
+    <string name="about">About</string>
+    <string name="developer">Developer</string>
+    <string name="icon">Icon</string>
+    <string name="icon_creator_name">Joaquín Jiménez</string>
+    <string name="developer_name">Jonathan Hernández</string>
+
+    <string name="icon_creator_g_plus_url">https://plus.google.com/u/0/+JoaquinJimenez26112002</string>
+    <string name="developer_g_plus_url">https://plus.google.com/u/0/114451734581302323535</string>
 </resources>

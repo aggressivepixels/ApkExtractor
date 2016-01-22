@@ -1,6 +1,5 @@
 package com.jonathan.apkextractor;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -70,12 +69,14 @@ public class MainActivity extends AppCompatActivity implements
         //Small hack, SwipeRefreshLayout wont show the indicator if it haven't
         //measured itself, with this I show the indicator after a small delay,
         //so I'm sure it's measured.
-        mRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRefreshLayout.setRefreshing(true);
-            }
-        }, 400);
+        if (savedInstanceState == null && mCurrentState == STATE_LOADING) {
+            mRefreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshLayout.setRefreshing(true);
+                }
+            }, 400);
+        }
 
         getSupportLoaderManager().initLoader(0, null, this);
     }
@@ -102,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements
         /*if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
-        } else*/ if (id == R.id.action_show_system_apps) {
+        } else*/
+        if (id == R.id.action_show_system_apps) {
             item.setChecked(!item.isChecked());
             boolean showSystemApps = PreferencesUtils.showSystemApps(this);
             if (showSystemApps != item.isChecked()) {
@@ -110,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements
                 PreferencesUtils.setShowSystemApps(this, showSystemApps);
                 getSupportLoaderManager().restartLoader(0, null, this);
             }
+            return true;
+        } else if (id == R.id.action_about) {
+            AppManager.showAboutDialog(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

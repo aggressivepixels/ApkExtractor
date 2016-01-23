@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor.utils;
+package com.jonathan.apkextractor.util;
 
 import android.app.Activity;
 import android.support.v4.view.ViewCompat;

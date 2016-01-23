@@ -1,8 +1,11 @@
-package com.jonathan.apkextractor;
+package com.jonathan.apkextractor.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+
+import com.jonathan.apkextractor.R;
+import com.jonathan.apkextractor.activity.AppCompatPreferenceActivity;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 

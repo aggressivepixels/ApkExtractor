@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 
-import com.jonathan.apkextractor.AppManager;
+import com.jonathan.apkextractor.util.AppManager;
 import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.loader.AppEntry;
 

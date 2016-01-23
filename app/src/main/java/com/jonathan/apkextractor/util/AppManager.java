@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor;
+package com.jonathan.apkextractor.util;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,17 +12,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.jonathan.apkextractor.Common;
+import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.task.BackupApkTask;
 import com.jonathan.apkextractor.task.OnMessageListener;
 import com.jonathan.apkextractor.task.ShareApkTask;
-import com.jonathan.apkextractor.utils.FileUtils;
-import com.jonathan.apkextractor.utils.ViewUtils;
+import com.jonathan.apkextractor.util.FileUtils;
+import com.jonathan.apkextractor.util.PermissionHelper;
+import com.jonathan.apkextractor.util.ViewUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -147,34 +149,5 @@ public class AppManager {
         } else {
             return false;
         }
-    }
-
-
-    @SuppressLint("InflateParams")
-    public static void showAboutDialog(final FragmentActivity context) {
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.about_dialog, null);
-        view.findViewById(R.id.developer_google_plus_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.developer_g_plus_url))));
-            }
-        });
-        view.findViewById(R.id.icon_creator_google_plus_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.icon_creator_g_plus_url))));
-            }
-        });
-        new AlertDialog.Builder(context)
-                .setTitle(R.string.about)
-                .setView(view)
-                .setNeutralButton(R.string.licenses, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        new LicensesDialogFragment().show(context.getSupportFragmentManager(), "LicensesDialogFragment");
-                    }
-                }).setPositiveButton(android.R.string.ok, null)
-                .show();
     }
 }

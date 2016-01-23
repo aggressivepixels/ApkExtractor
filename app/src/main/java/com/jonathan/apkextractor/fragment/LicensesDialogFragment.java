@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor;
+package com.jonathan.apkextractor.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -8,6 +8,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.webkit.WebView;
+
+import com.jonathan.apkextractor.R;
 
 /**
  * Simple {@link AlertDialog} subclass that shows the open sources licences for the app.

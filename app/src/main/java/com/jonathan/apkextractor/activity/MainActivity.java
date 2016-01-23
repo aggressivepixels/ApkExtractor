@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor;
+package com.jonathan.apkextractor.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,12 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jonathan.apkextractor.util.AppManager;
+import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.adapter.AppsInfoAdapter;
 import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.loader.AppListLoader;
 import com.jonathan.apkextractor.task.OnMessageListener;
-import com.jonathan.apkextractor.utils.PreferencesUtils;
-import com.jonathan.apkextractor.utils.ViewUtils;
+import com.jonathan.apkextractor.util.PermissionHelper;
+import com.jonathan.apkextractor.util.PreferencesUtils;
+import com.jonathan.apkextractor.util.Utils;
+import com.jonathan.apkextractor.util.ViewUtils;
 
 import java.util.List;
 
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements
             }
             return true;
         } else if (id == R.id.action_about) {
-            AppManager.showAboutDialog(this);
+            Utils.showAboutDialog(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

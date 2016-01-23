@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor;
+package com.jonathan.apkextractor.util;
 
 import android.app.Activity;
 import android.content.Context;

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.loader.AppEntry;
-import com.jonathan.apkextractor.utils.ViewUtils;
+import com.jonathan.apkextractor.util.ViewUtils;
 
 import java.util.List;
 

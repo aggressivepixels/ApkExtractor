@@ -1,4 +1,4 @@
-package com.jonathan.apkextractor.utils;
+package com.jonathan.apkextractor.util;
 
 import android.content.Context;
 import android.preference.PreferenceManager;

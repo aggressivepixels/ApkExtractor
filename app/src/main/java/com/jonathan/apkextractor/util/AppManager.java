@@ -5,13 +5,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +18,6 @@ import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.task.BackupApkTask;
 import com.jonathan.apkextractor.task.OnMessageListener;
 import com.jonathan.apkextractor.task.ShareApkTask;
-import com.jonathan.apkextractor.util.FileUtils;
-import com.jonathan.apkextractor.util.PermissionHelper;
-import com.jonathan.apkextractor.util.ViewUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -100,7 +93,7 @@ public class AppManager {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                showAppSettingsScreen(context);
+                                Utils.showAppSettingsScreen(context);
                             }
                         });
             }
@@ -122,32 +115,11 @@ public class AppManager {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                showAppSettingsScreen(context);
+                                Utils.showAppSettingsScreen(context);
                             }
                         });
             }
         });
     }
 
-    /**
-     * A helper method for showing the app's settings screen.
-     *
-     * @param activity An activity instance.
-     * @return Whether the app settings were opened or not.
-     */
-    public static boolean showAppSettingsScreen(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Intent intent = new Intent(
-                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                    Uri.fromParts(
-                            "package",
-                            activity.getPackageName(),
-                            null));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            activity.startActivity(intent);
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

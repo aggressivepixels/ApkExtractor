@@ -1,29 +1,43 @@
 <resources>
-    <string name="app_name">ApkExtractor</string>
-    <string name="action_settings">Settings</string>
 
+    <string name="app_name">ApkExtractor</string>
+
+    <!-- Menu items -->
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+
+    <!-- App info dialog -->
     <string name="version">Version</string>
     <string name="package_name">Package</string>
     <string name="launch">Launch</string>
     <string name="share">Share</string>
     <string name="backup">Backup</string>
     <string name="share_app">Share %s</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="pref_show_system_apps">Show system apps</string>
     <string name="error_backing_up_app">Couldn\'t backup %s</string>
-    <string name="no_apps">No apps installed</string>
     <string name="backed_up_app">Backed up %s</string>
     <string name="error_sharing_app">Error sharing %s</string>
     <string name="error_getting_app_info">Error getting app\'s information</string>
+
+    <!-- Apps list-->
+    <string name="no_apps">No apps installed</string>
+
+    <!-- Settings -->
+    <string name="activity_settings">Settings</string>
+    <string name="pref_show_system_apps">Show system apps</string>
+
+    <!-- Permissions -->
     <string name="permission_error_message">To backup apps, allow the permission to read external storage</string>
+
+    <!-- Contributors list -->
+    <string name="app_developer">App developer</string>
+    <string name="app_developer_name">Jonathan Hernández</string>
+    <string name="app_developer_g_plus_url">https://plus.google.com/u/0/114451734581302323535</string>
+
+    <string name="icon_designer">Icon designer</string>
+    <string name="icon_designer_name">Joaquín Jiménez</string>
+    <string name="icon_designer_g_plus_url">https://plus.google.com/u/0/+JoaquinJimenez26112002</string>
+
+    <!-- About dialog -->
     <string name="licenses">Licenses</string>
     <string name="app_description">Backup and share APKs directly from your device!</string>
-    <string name="about">About</string>
-    <string name="developer">Developer</string>
-    <string name="icon">Icon</string>
-    <string name="icon_creator_name">Joaquín Jiménez</string>
-    <string name="developer_name">Jonathan Hernández</string>
-
-    <string name="icon_creator_g_plus_url">https://plus.google.com/u/0/+JoaquinJimenez26112002</string>
-    <string name="developer_g_plus_url">https://plus.google.com/u/0/114451734581302323535</string>
 </resources>

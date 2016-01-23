@@ -40,6 +40,7 @@ public class ViewUtils {
             }
         }).start();
     }
+
     public static void fadeOut(View view) {
         ViewCompat.animate(view).alpha(0f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
             @Override

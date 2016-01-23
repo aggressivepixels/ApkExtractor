@@ -1,8 +1,13 @@
 package com.jonathan.apkextractor.util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -29,7 +34,7 @@ public class Utils {
                 .setAdapter(new ContributorsListAdapter(context, getContributorsList(context)));
 
         new AlertDialog.Builder(context)
-                .setTitle(R.string.about)
+                .setTitle(R.string.action_about)
                 .setView(view)
                 .setNeutralButton(R.string.licenses, new DialogInterface.OnClickListener() {
                     @Override
@@ -40,22 +45,45 @@ public class Utils {
                 .show();
     }
 
+
+    /**
+     * A helper method for showing the app's settings screen.
+     *
+     * @param activity An activity instance.
+     * @return Whether the app settings were opened or not.
+     */
+    public static boolean showAppSettingsScreen(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent(
+                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                    Uri.fromParts(
+                            "package",
+                            activity.getPackageName(),
+                            null));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private static List<Contributor> getContributorsList(Context context) {
         List<Contributor> contributors = new ArrayList<>();
 
         //Developer (Me! :D)
         contributors.add(
                 new Contributor(
-                        context.getString(R.string.developer),
-                        context.getString(R.string.developer_name),
-                        context.getString(R.string.developer_g_plus_url)));
+                        context.getString(R.string.app_developer),
+                        context.getString(R.string.app_developer_name),
+                        context.getString(R.string.app_developer_g_plus_url)));
 
         //Icon designer (Joaquín)
         contributors.add(
                 new Contributor(
-                        context.getString(R.string.icon),
-                        context.getString(R.string.icon_creator_name),
-                        context.getString(R.string.icon_creator_g_plus_url)));
+                        context.getString(R.string.icon_designer),
+                        context.getString(R.string.icon_designer_name),
+                        context.getString(R.string.icon_designer_g_plus_url)));
 
         return contributors;
     }

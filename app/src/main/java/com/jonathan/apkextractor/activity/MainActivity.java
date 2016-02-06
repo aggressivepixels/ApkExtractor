@@ -16,17 +16,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jonathan.apkextractor.util.AppManager;
 import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.adapter.AppsInfoAdapter;
 import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.loader.AppListLoader;
 import com.jonathan.apkextractor.task.OnMessageListener;
+import com.jonathan.apkextractor.util.AppManager;
 import com.jonathan.apkextractor.util.PermissionHelper;
 import com.jonathan.apkextractor.util.PreferencesUtils;
 import com.jonathan.apkextractor.util.Utils;
 import com.jonathan.apkextractor.util.ViewUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private PermissionHelper mPermissionHelper;
 
+    private AppsInfoAdapter mAdapter;
+
     //TODO add loading and empty state
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView = ViewUtils.findViewById(this, R.id.recycler_view);
         mRefreshLayout = ViewUtils.findViewById(this, R.id.swipe_refresh_layout);
         mEmpty = ViewUtils.findViewById(this, android.R.id.empty);
+
+        mAdapter = new AppsInfoAdapter(this, new ArrayList<AppEntry>(), this);
+        mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -126,7 +132,8 @@ public class MainActivity extends AppCompatActivity implements
 
     public void onAppsInfoLoaded(List<AppEntry> appsInfo) {
         if (appsInfo != null && appsInfo.size() > 0) {
-            mRecyclerView.swapAdapter(new AppsInfoAdapter(this, appsInfo, this), false);
+            mAdapter = new AppsInfoAdapter(this, appsInfo, this);
+            mRecyclerView.swapAdapter(mAdapter, false);
             setState(STATE_NORMAL);
         } else {
             setState(STATE_EMPTY);

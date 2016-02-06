@@ -13,9 +13,12 @@
         android:id="@+id/swipe_refresh_layout"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
+            app:fastScrollThumbColor="?colorAccent"
+            app:fastScrollPopupBgColor="?colorAccent"
+            app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -1,6 +1,7 @@
 package com.jonathan.apkextractor.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,11 @@ import android.widget.TextView;
 import com.jonathan.apkextractor.R;
 import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.util.ViewUtils;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
 
-public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppViewHolder> {
+public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
     private LayoutInflater mInflater;
     private List<AppEntry> mAppsInfo;
@@ -39,6 +41,12 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
     @Override
     public int getItemCount() {
         return mAppsInfo.size();
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return mAppsInfo.get(position).getLabel().substring(0, 1);
     }
 
     public class AppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

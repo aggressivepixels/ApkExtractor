@@ -1,6 +1,7 @@
 package com.jonathan.apkextractor.activity;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.net.Uri;
@@ -8,6 +9,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,7 +22,8 @@ import android.view.View;
 import com.jonathan.apkextractor.AppManager;
 import com.jonathan.apkextractor.Common;
 import com.jonathan.apkextractor.R;
-import com.jonathan.apkextractor.loader.AppEntry;
+import com.jonathan.apkextractor.fragment.ApkFilesListFragment;
+import com.jonathan.apkextractor.fragment.InstalledAppsListFragment;
 import com.jonathan.apkextractor.util.FileUtils;
 import com.jonathan.apkextractor.util.PermissionHelper;
 import com.jonathan.apkextractor.util.Utils;
@@ -40,6 +46,40 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
 
         Toolbar toolbar = ViewUtils.findViewById(this, R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        TabLayout tabLayout = ViewUtils.findViewById(this, R.id.tab_layout);
+
+        ViewPager viewPager = ViewUtils.findViewById(this, R.id.view_pager);
+        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    case 0:
+                        return new InstalledAppsListFragment();
+                    case 1:
+                        return new ApkFilesListFragment();
+                }
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position) {
+                    case 0:
+                        return getResources().getString(R.string.tab_installed);
+                    case 1:
+                        return getResources().getString(R.string.backup);
+                }
+                return super.getPageTitle(position);
+            }
+        });
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -61,6 +101,19 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void deleteApk(final ApplicationInfo applicationInfo) {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.delete_apk_confirmation)
+                .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new DeleteApkTask().execute(applicationInfo);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null).show();
     }
 
     @Override
@@ -107,6 +160,14 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
                         });
             }
         });
+    }
+
+    @Override
+    public void installApk(ApplicationInfo applicationInfo) {
+        File file = new File(applicationInfo.sourceDir);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -217,6 +278,26 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
                 showMessage(getResources().getString(R.string.error_sharing_app, appInfo.loadLabel(getPackageManager())));
             } catch (ActivityNotFoundException e) {
                 //TODO: Notify the user no activity can share apks
+            }
+            return null;
+        }
+    }
+
+
+    public class DeleteApkTask extends AsyncTask<ApplicationInfo, Void, Void> {
+
+        public DeleteApkTask() {
+
+        }
+
+        @SuppressWarnings("TryWithIdenticalCatches")
+        @Override
+        protected Void doInBackground(ApplicationInfo... params) {
+            ApplicationInfo info = params[0];
+            if (info != null && new File(info.sourceDir).delete()) {
+                showMessage(getResources().getString(R.string.apk_deleted));
+            } else {
+                showMessage(getResources().getString(R.string.apk_deleted_failed));
             }
             return null;
         }

@@ -135,8 +135,8 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     }
 
     public void onAppsInfoLoaded(List<AppEntry> appsInfo) {
+        mAdapter.setData(appsInfo);
         if (appsInfo != null && appsInfo.size() > 0) {
-            mAdapter.setData(appsInfo);
             mStateManager.setState(ListStateManager.STATE_NORMAL);
         } else {
             mStateManager.setState(ListStateManager.STATE_EMPTY);

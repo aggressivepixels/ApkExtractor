@@ -46,4 +46,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete">Delete</string>
+
+    <string name="apk_deleted">APK deleted</string>
+    <string name="apk_deleted_failed">Couldn\'t delete APK</string>
+    <string name="tab_installed">Installed</string>
+    <string name="delete_apk_confirmation">Delete APK?</string>
 </resources>

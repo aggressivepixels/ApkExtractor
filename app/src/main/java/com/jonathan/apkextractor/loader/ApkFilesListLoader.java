@@ -1,7 +1,7 @@
 package com.jonathan.apkextractor.loader;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.support.v4.content.AsyncTaskLoader;
 
 import com.jonathan.apkextractor.observer.ApkFilesObserver;
 import com.jonathan.apkextractor.util.FileUtils;
@@ -31,11 +31,11 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         File apkFolder = new File(FileUtils.getBackupFolder(getContext()));
 
         //All the APKs in the folder
-        String[] apkFilesInFolder = apkFolder.list(new ApkFileFilter());
+        File[] apkFilesInFolder = apkFolder.listFiles(new ApkFileFilter());
 
         //Now create the actual ApkFiles and return them
-        for (String apkFilePath : apkFilesInFolder) {
-            apkFiles.add(new ApkFile(this, apkFilePath));
+        for (File apkFile : apkFilesInFolder) {
+            apkFiles.add(new ApkFile(this, apkFile.getPath()));
         }
 
         //Sort the APKs
@@ -79,8 +79,8 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         // Begin monitoring the underlying data source.
         if (mObserver == null) {
             mObserver = new ApkFilesObserver(this);
-            mObserver.startWatching();
         }
+        mObserver.startWatching();
 
         if (takeContentChanged() || mApkFiles == null) {
             // When the observer detects a change, it should call onContentChanged()
@@ -116,7 +116,6 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         // The Loader is being reset, so we should stop monitoring for changes.
         if (mObserver != null) {
             mObserver.stopWatching();
-            mObserver = null;
         }
     }
 

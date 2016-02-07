@@ -1,6 +1,7 @@
 package com.jonathan.apkextractor.observer;
 
 import android.os.FileObserver;
+import android.os.Handler;
 
 import com.jonathan.apkextractor.loader.ApkFilesListLoader;
 import com.jonathan.apkextractor.util.FileUtils;
@@ -17,6 +18,13 @@ public class ApkFilesObserver extends FileObserver {
 
     @Override
     public void onEvent(int event, String path) {
-        mLoader.onContentChanged();
+        if (event == CREATE || event == DELETE || event == MODIFY) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mLoader.onContentChanged();
+        }
     }
 }

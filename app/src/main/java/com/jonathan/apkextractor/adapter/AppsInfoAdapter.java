@@ -14,6 +14,7 @@ import com.jonathan.apkextractor.loader.AppEntry;
 import com.jonathan.apkextractor.util.ViewUtils;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
@@ -24,6 +25,9 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
 
     public AppsInfoAdapter(Context context, List<AppEntry> appsInfo, OnAppInteractionListener listener) {
         mInflater = LayoutInflater.from(context);
+        if (appsInfo == null) {
+            appsInfo = new ArrayList<>();
+        }
         mAppsInfo = appsInfo;
         mListener = listener;
     }
@@ -75,6 +79,20 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
             dispatchAppClick(appInfo);
         }
 
+    }
+
+    public void setData(List<AppEntry> appEntryList) {
+        if (appEntryList == null) {
+            appEntryList = new ArrayList<>();
+        }
+        mAppsInfo = appEntryList;
+
+        notifyDataSetChanged();
+    }
+
+
+    private List<AppEntry> getData() {
+        return mAppsInfo;
     }
 
     private void dispatchAppClick(AppEntry appInfo) {

@@ -50,7 +50,7 @@ public class ViewUtils {
 
             @Override
             public void onAnimationEnd(View view) {
-                view.setVisibility(View.GONE);
+                view.setVisibility(View.INVISIBLE);
             }
 
             @Override

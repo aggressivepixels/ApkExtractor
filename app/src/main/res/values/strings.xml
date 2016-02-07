@@ -19,7 +19,10 @@
     <string name="error_getting_app_info">Error getting app\'s information</string>
 
     <!-- Apps list-->
-    <string name="no_apps">No apps installed</string>
+    <string name="no_apps_installed">No apps installed</string>
+
+    <!-- Apk files list -->
+    <string name="no_apps_saved">No apps saved</string>
 
     <!-- Settings -->
     <string name="activity_settings">Settings</string>

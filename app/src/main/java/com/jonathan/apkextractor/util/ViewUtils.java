@@ -23,40 +23,44 @@ public class ViewUtils {
     }
 
     public static void fadeIn(View view) {
-        ViewCompat.animate(view).alpha(1f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
-            @Override
-            public void onAnimationStart(View view) {
-                view.setVisibility(View.VISIBLE);
-            }
+        if (view != null) {
+            ViewCompat.animate(view).alpha(1f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
+                @Override
+                public void onAnimationStart(View view) {
+                    view.setVisibility(View.VISIBLE);
+                }
 
-            @Override
-            public void onAnimationEnd(View view) {
+                @Override
+                public void onAnimationEnd(View view) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationCancel(View view) {
+                @Override
+                public void onAnimationCancel(View view) {
 
-            }
-        }).start();
+                }
+            }).start();
+        }
     }
 
     public static void fadeOut(View view) {
-        ViewCompat.animate(view).alpha(0f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
-            @Override
-            public void onAnimationStart(View view) {
+        if (view != null) {
+            ViewCompat.animate(view).alpha(0f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
+                @Override
+                public void onAnimationStart(View view) {
 
-            }
+                }
 
-            @Override
-            public void onAnimationEnd(View view) {
-                view.setVisibility(View.INVISIBLE);
-            }
+                @Override
+                public void onAnimationEnd(View view) {
+                    view.setVisibility(View.INVISIBLE);
+                }
 
-            @Override
-            public void onAnimationCancel(View view) {
+                @Override
+                public void onAnimationCancel(View view) {
 
-            }
-        }).start();
+                }
+            }).start();
+        }
     }
 }

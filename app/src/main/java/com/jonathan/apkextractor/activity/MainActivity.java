@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.jonathan.apkextractor.AppManager;
 import com.jonathan.apkextractor.Common;
@@ -40,6 +41,7 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCoordinatorLayout = ViewUtils.findViewById(this, R.id.coordinator_layout);
@@ -183,11 +185,11 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
         return file;
     }
 
-    private void showMessage(String message) {
+    public void showMessage(String message) {
         showMessage(message, null, null);
     }
 
-    private void showMessage(String message, String action, View.OnClickListener actionListener) {
+    public void showMessage(String message, String action, View.OnClickListener actionListener) {
         Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_SHORT);
         if (action != null) {
             snackbar.setAction(action, actionListener);

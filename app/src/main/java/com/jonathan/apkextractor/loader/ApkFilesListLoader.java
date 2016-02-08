@@ -33,6 +33,10 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         //All the APKs in the folder
         File[] apkFilesInFolder = apkFolder.listFiles(new ApkFileFilter());
 
+        if (apkFilesInFolder == null) {
+            apkFilesInFolder = new File[]{};
+        }
+
         //Now create the actual ApkFiles and return them
         for (File apkFile : apkFilesInFolder) {
             apkFiles.add(new ApkFile(this, apkFile.getPath()));

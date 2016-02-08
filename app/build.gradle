@@ -8,8 +8,8 @@ android {
         applicationId "com.jonathan.apkextractor"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 7
-        versionName "0.5.1"
+        versionCode 8
+        versionName "0.5.2"
     }
     buildTypes {
         release {

@@ -16,10 +16,11 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
-    private LayoutInflater mInflater;
+    protected LayoutInflater mInflater;
     private List<AppEntry> mAppsInfo;
     private OnAppInteractionListener mListener;
 
@@ -55,16 +56,17 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
 
     public class AppViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView appName, appPackage;
-        ImageView appIcon;
-        AppEntry appInfo;
+        public TextView appName, appPackage, sectionHeader;
+        public ImageView appIcon;
+        public AppEntry appInfo;
 
         public AppViewHolder(View itemView) {
             super(itemView);
             appName = ViewUtils.findViewById(itemView, android.R.id.title);
             appPackage = ViewUtils.findViewById(itemView, android.R.id.summary);
+            sectionHeader = ViewUtils.findViewById(itemView, R.id.app_info_section_header);
             appIcon = ViewUtils.findViewById(itemView, android.R.id.icon);
-            itemView.setOnClickListener(this);
+            ViewUtils.findViewById(itemView, R.id.app_info_container).setOnClickListener(this);
         }
 
         public void bindApp(AppEntry appInfo) {
@@ -72,6 +74,12 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
             appName.setText(appInfo.getLabel());
             appPackage.setText(appInfo.getApplicationInfo().packageName);
             appIcon.setImageDrawable(appInfo.getIcon());
+            sectionHeader.setText(appInfo.getLabel().substring(0, 1));
+            if (isSectionHeader(getAdapterPosition())) {
+                sectionHeader.setVisibility(View.VISIBLE);
+            } else {
+                sectionHeader.setVisibility(View.INVISIBLE);
+            }
         }
 
         @Override
@@ -79,6 +87,22 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
             dispatchAppClick(appInfo);
         }
 
+    }
+
+    public boolean isSectionHeader(int position) {
+        if (position == 0) {
+            return true;
+        }
+        return !mAppsInfo
+                .get(position)
+                .getLabel()
+                .substring(0, 1)
+                .toUpperCase(Locale.getDefault())
+                .equals(mAppsInfo
+                        .get(position - 1)
+                        .getLabel()
+                        .substring(0, 1)
+                        .toUpperCase(Locale.getDefault()));
     }
 
     public void setData(List<AppEntry> appEntryList) {
@@ -91,7 +115,7 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
     }
 
 
-    private List<AppEntry> getData() {
+    protected List<AppEntry> getData() {
         return mAppsInfo;
     }
 

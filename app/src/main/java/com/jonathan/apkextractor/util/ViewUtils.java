@@ -53,6 +53,7 @@ public class ViewUtils {
 
                 @Override
                 public void onAnimationEnd(View view) {
+                    ViewCompat.setAlpha(view, 1f);
                     view.setVisibility(View.INVISIBLE);
                 }
 

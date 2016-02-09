@@ -51,4 +51,9 @@
         <item name="overlapAnchor">true</item>
     </style>
 
+    <style name="TextAppearance.AppTheme.SectionHeader" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
 </resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_info_section_header"
+    android:layout_width="56dp"
+    android:layout_height="72dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="16dp"
+    android:paddingStart="16dp"
+    android:textAllCaps="true"
+    android:textAppearance="@style/TextAppearance.AppTheme.SectionHeader"
+    tools:text="a" />

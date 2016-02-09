@@ -20,7 +20,7 @@ public class ApkFilesObserver extends FileObserver {
     public void onEvent(int event, String path) {
         if (event == CREATE || event == DELETE || event == MODIFY) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(25);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

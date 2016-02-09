@@ -34,7 +34,6 @@ import java.util.Locale;
 public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapter.OnAppInteractionListener, LoaderManager.LoaderCallbacks<List<AppEntry>> {
 
     private RecyclerView mRecyclerView;
-    private boolean mRestoreSystemAppsState;
     private AppsInfoAdapter mAdapter;
     private ListStateManager mStateManager;
     private TextView mStickySection;
@@ -116,8 +115,6 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-        mRestoreSystemAppsState = true;
         mAdapter = new AppsInfoAdapter(getActivity(), null, this);
     }
 
@@ -155,10 +152,7 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        if (mRestoreSystemAppsState) {
-            mRestoreSystemAppsState = false;
-            menu.findItem(R.id.action_show_system_apps).setChecked(PreferencesUtils.showSystemApps(getActivity()));
-        }
+        menu.findItem(R.id.action_show_system_apps).setChecked(PreferencesUtils.showSystemApps(getActivity()));
     }
 
     @Override

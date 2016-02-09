@@ -23,18 +23,6 @@ public class ApkFilesAdapter extends RecyclerView.Adapter<ApkFilesAdapter.ApkVie
     private List<ApkFile> mApkFiles;
     private OnApkInteractionListener mListener;
 
-    private View.OnClickListener mShowPopupListener = new View.OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                    showPopupMenu(view);
-                }
-            });
-        }
-    };
-
     public ApkFilesAdapter(Context context, List<ApkFile> apkFiles, OnApkInteractionListener listener) {
         mInflater = LayoutInflater.from(context);
         if (apkFiles == null) {
@@ -65,6 +53,7 @@ public class ApkFilesAdapter extends RecyclerView.Adapter<ApkFilesAdapter.ApkVie
         ImageView appIcon;
         View more;
         ApkFile apkFile;
+        PopupMenu popupMenu;
 
         public ApkViewHolder(View itemView) {
             super(itemView);
@@ -72,8 +61,37 @@ public class ApkFilesAdapter extends RecyclerView.Adapter<ApkFilesAdapter.ApkVie
             appIcon = ViewUtils.findViewById(itemView, android.R.id.icon);
             more = ViewUtils.findViewById(itemView, android.R.id.button1);
 
-            more.setOnClickListener(mShowPopupListener);
+            setupPopupMenu();
+
             itemView.setOnClickListener(this);
+        }
+
+        private void setupPopupMenu() {
+            popupMenu = new PopupMenu(more.getContext(), more);
+            popupMenu.getMenuInflater().inflate(R.menu.menu_apk_file_list_item, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.action_share:
+                            mListener.shareApk((ApkFile) more.getTag());
+                            return true;
+                        case R.id.action_delete:
+                            mListener.deleteApk((ApkFile) more.getTag());
+                            return true;
+                    }
+                    return false;
+                }
+            });
+
+
+            more.setOnTouchListener(popupMenu.getDragToOpenListener());
+            more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    popupMenu.show();
+                }
+            });
         }
 
         public void bindApk(ApkFile apkFile) {
@@ -102,40 +120,6 @@ public class ApkFilesAdapter extends RecyclerView.Adapter<ApkFilesAdapter.ApkVie
     @Override
     public long getItemId(int position) {
         return mApkFiles.get(position).hashCode();
-    }
-
-    private List<ApkFile> getData() {
-        return mApkFiles;
-    }
-
-    private void showPopupMenu(View view) {
-        // Retrieve the clicked item from view's tag
-        final ApkFile item = (ApkFile) view.getTag();
-
-        // Create a PopupMenu, giving it the clicked view for an anchor
-        PopupMenu popup = new PopupMenu(view.getContext(), view);
-
-        // Inflate our menu resource into the PopupMenu's Menu
-        popup.getMenuInflater().inflate(R.menu.menu_apk_file_list_item, popup.getMenu());
-
-        // Set a listener so we are notified if a menu item is clicked
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.action_share:
-                        mListener.shareApk(item);
-                        return true;
-                    case R.id.action_delete:
-                        mListener.deleteApk(item);
-                        return true;
-                }
-                return false;
-            }
-        });
-
-        // Finally show the PopupMenu
-        popup.show();
     }
 
     public interface OnApkInteractionListener {

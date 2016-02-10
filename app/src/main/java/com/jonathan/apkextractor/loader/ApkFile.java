@@ -48,6 +48,7 @@ public class ApkFile {
         return mApplicationInfo;
     }
 
+    @SuppressWarnings("SimplifiableIfStatement")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,8 +56,7 @@ public class ApkFile {
 
         ApkFile apkFile = (ApkFile) o;
 
-        if (mApkFile != null ? !mApkFile.equals(apkFile.mApkFile) : apkFile.mApkFile != null)
-            return false;
+        if (mApkFile != null ? !mApkFile.equals(apkFile.mApkFile) : apkFile.mApkFile != null) return false;
         if (mIcon != null ? !mIcon.equals(apkFile.mIcon) : apkFile.mIcon != null) return false;
         if (mLabel != null ? !mLabel.equals(apkFile.mLabel) : apkFile.mLabel != null) return false;
         return mApplicationInfo != null ? mApplicationInfo.equals(apkFile.mApplicationInfo) : apkFile.mApplicationInfo == null;

@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
+            android:contentDescription="@null"
             android:src="@drawable/ic_launcher_large" />
 
         <TextView

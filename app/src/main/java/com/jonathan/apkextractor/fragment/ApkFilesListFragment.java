@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -103,7 +102,7 @@ public class ApkFilesListFragment extends Fragment implements ApkFilesAdapter.On
         onApkFilesLoaded(null);
     }
 
-    public void onApkFilesLoaded(List<ApkFile> appsInfo) {
+    private void onApkFilesLoaded(List<ApkFile> appsInfo) {
         mAdapter.setData(appsInfo);
         if (appsInfo != null && appsInfo.size() > 0) {
             mStateManager.setState(ListStateManager.STATE_NORMAL);

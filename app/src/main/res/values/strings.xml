@@ -25,7 +25,6 @@
     <string name="no_apps_saved">No apps saved</string>
 
     <!-- Settings -->
-    <string name="activity_settings">Settings</string>
     <string name="pref_show_system_apps">Show system apps</string>
 
     <!-- Permissions -->
@@ -44,10 +43,7 @@
     <string name="licenses">Licenses</string>
     <string name="app_description">Backup and share APKs directly from your device!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="delete">Delete</string>
-
     <string name="apk_deleted">APK deleted</string>
     <string name="apk_deleted_failed">Couldn\'t delete APK</string>
     <string name="tab_installed">Installed</string>

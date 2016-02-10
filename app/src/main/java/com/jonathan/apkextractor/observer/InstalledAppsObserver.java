@@ -38,8 +38,10 @@ public class InstalledAppsObserver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (BuildConfig.DEBUG) Log.i(TAG, "The observer has detected an application change!" +
-                " Notifying Loader...");
+        if (BuildConfig.DEBUG) {
+            Log.i(TAG, "The observer has detected an application change!" +
+                    " Notifying Loader...");
+        }
 
         // Tell the loader about the change.
         mLoader.onContentChanged();

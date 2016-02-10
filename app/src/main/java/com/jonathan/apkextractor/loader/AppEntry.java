@@ -3,6 +3,7 @@ package com.jonathan.apkextractor.loader;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 
 import java.io.File;
 
@@ -54,8 +55,9 @@ public class AppEntry {
             return mIcon;
         }
 
-        return mLoader.getContext().getResources()
-                .getDrawable(android.R.drawable.sym_def_app_icon);
+
+        return ContextCompat
+                .getDrawable(mLoader.getContext(), android.R.drawable.sym_def_app_icon);
     }
 
     @Override

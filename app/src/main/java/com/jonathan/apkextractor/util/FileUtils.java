@@ -40,7 +40,7 @@ public class FileUtils {
     }
 
     public static String getBackupFolder(Context context) {
-        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + Common.FOLDER_NAME;
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + Common.BACKUP_FOLDER_NAME;
     }
 
     public static String getFormattedName(Context context, ApplicationInfo applicationInfo) {

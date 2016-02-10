@@ -20,7 +20,7 @@ import java.util.Locale;
 
 public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
 
-    protected LayoutInflater mInflater;
+    private LayoutInflater mInflater;
     private List<AppEntry> mAppsInfo;
     private OnAppInteractionListener mListener;
 
@@ -89,20 +89,8 @@ public class AppsInfoAdapter extends RecyclerView.Adapter<AppsInfoAdapter.AppVie
 
     }
 
-    public boolean isSectionHeader(int position) {
-        if (position == 0) {
-            return true;
-        }
-        return !mAppsInfo
-                .get(position)
-                .getLabel()
-                .substring(0, 1)
-                .toUpperCase(Locale.getDefault())
-                .equals(mAppsInfo
-                        .get(position - 1)
-                        .getLabel()
-                        .substring(0, 1)
-                        .toUpperCase(Locale.getDefault()));
+    private boolean isSectionHeader(int position) {
+        return position == 0 || !mAppsInfo.get(position).getLabel().substring(0, 1).toUpperCase(Locale.getDefault()).equals(mAppsInfo.get(position - 1).getLabel().substring(0, 1).toUpperCase(Locale.getDefault()));
     }
 
     public void setData(List<AppEntry> appEntryList) {

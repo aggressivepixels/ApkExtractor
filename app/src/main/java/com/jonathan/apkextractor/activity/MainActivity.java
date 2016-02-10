@@ -173,7 +173,7 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public File backupApkFile(ApplicationInfo appInfo) throws IOException {
+    private File backupApkFile(ApplicationInfo appInfo) throws IOException {
         File file = null;
         if (FileUtils.isExternalStorageWritable()) {
             File dir = new File(FileUtils.getBackupFolder(this));
@@ -185,11 +185,11 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
         return file;
     }
 
-    public void showMessage(String message) {
+    private void showMessage(String message) {
         showMessage(message, null, null);
     }
 
-    public void showMessage(String message, String action, View.OnClickListener actionListener) {
+    private void showMessage(String message, String action, View.OnClickListener actionListener) {
         Snackbar snackbar = Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_SHORT);
         if (action != null) {
             snackbar.setAction(action, actionListener);
@@ -279,7 +279,7 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
             } catch (IOException e) {
                 showMessage(getResources().getString(R.string.error_sharing_app, appInfo.loadLabel(getPackageManager())));
             } catch (ActivityNotFoundException e) {
-                //TODO: Notify the user no activity can share apks
+                //TODO: Notify the user no activity can share APKs
             }
             return null;
         }

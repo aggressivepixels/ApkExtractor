@@ -193,7 +193,7 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
         onAppsInfoLoaded(null);
     }
 
-    public void onAppsInfoLoaded(List<AppEntry> appsInfo) {
+    private void onAppsInfoLoaded(List<AppEntry> appsInfo) {
         mAdapter.setData(appsInfo);
         mRecyclerView.scrollToPosition(0);
         if (appsInfo != null && appsInfo.size() > 0) {

@@ -4,23 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
-    <TextView
-        android:id="@+id/app_info_section_header"
-        android:layout_width="56dp"
-        android:layout_height="72dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingStart="16dp"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppTheme.SectionHeader"
-        tools:text="a" />
+    <include layout="@layout/app_list_section_header" />
 
     <RelativeLayout
         android:id="@+id/app_info_container"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:background="?selectableItemBackground"
-        android:minHeight="72dp"
         android:padding="16dp">
 
         <ImageView

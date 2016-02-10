@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 public class ViewUtils {
 
+    public static final int DEFAULT_ANIMATION_DURATION = 200;
+
     @SuppressWarnings("unchecked")
     public static <T extends View> T findViewById(View view, int id) {
         return (T) view.findViewById(id);
@@ -24,7 +26,7 @@ public class ViewUtils {
 
     public static void fadeIn(View view) {
         if (view != null) {
-            ViewCompat.animate(view).alpha(1f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
+            ViewCompat.animate(view).alpha(1f).setDuration(DEFAULT_ANIMATION_DURATION).setListener(new ViewPropertyAnimatorListener() {
                 @Override
                 public void onAnimationStart(View view) {
                     view.setVisibility(View.VISIBLE);
@@ -45,7 +47,7 @@ public class ViewUtils {
 
     public static void fadeOut(View view) {
         if (view != null) {
-            ViewCompat.animate(view).alpha(0f).setDuration(200).setListener(new ViewPropertyAnimatorListener() {
+            ViewCompat.animate(view).alpha(0f).setDuration(DEFAULT_ANIMATION_DURATION).setListener(new ViewPropertyAnimatorListener() {
                 @Override
                 public void onAnimationStart(View view) {
 

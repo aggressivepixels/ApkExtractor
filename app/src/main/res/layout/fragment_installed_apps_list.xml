@@ -13,7 +13,9 @@
         app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
         app:fastScrollThumbColor="?colorAccent" />
 
-    <include layout="@layout/app_list_section_header" android:visibility="invisible"/>
+    <include
+        layout="@layout/app_list_section_header"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@android:id/empty"

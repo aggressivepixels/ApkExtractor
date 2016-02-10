@@ -48,4 +48,7 @@
     <string name="apk_deleted_failed">Couldn\'t delete APK</string>
     <string name="tab_installed">Installed</string>
     <string name="delete_apk_confirmation">Delete APK?</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_sort_by_date">Sort by date</string>
+    <string name="action_sort_alphabetically">Sort alphabetically</string>
 </resources>

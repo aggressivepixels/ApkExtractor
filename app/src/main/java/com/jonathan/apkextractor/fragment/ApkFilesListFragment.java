@@ -10,6 +10,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,6 +23,7 @@ import com.jonathan.apkextractor.adapter.ApkFilesAdapter;
 import com.jonathan.apkextractor.loader.ApkFile;
 import com.jonathan.apkextractor.loader.ApkFilesListLoader;
 import com.jonathan.apkextractor.util.ListStateManager;
+import com.jonathan.apkextractor.util.PreferencesUtils;
 import com.jonathan.apkextractor.util.ViewUtils;
 
 import java.util.List;
@@ -61,6 +65,8 @@ public class ApkFilesListFragment extends Fragment implements ApkFilesAdapter.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
         mAdapter = new ApkFilesAdapter(getActivity(), null, this);
         mAdapter.setHasStableIds(true);
     }
@@ -124,5 +130,43 @@ public class ApkFilesListFragment extends Fragment implements ApkFilesAdapter.On
     @Override
     public void installApk(ApkFile apkFile) {
         mAppManager.installApk(apkFile.getApplicationInfo());
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_apk_files_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sort_alphabetically:
+                item.setChecked(!item.isChecked());
+                if (item.isChecked()) {
+                    PreferencesUtils.setApkFilesListSortOrder(getActivity(), PreferencesUtils.SORT_ALPHABETICALLY);
+                }
+                return true;
+            case R.id.action_sort_by_date:
+                item.setChecked(!item.isChecked());
+                if (item.isChecked()) {
+                    PreferencesUtils.setApkFilesListSortOrder(getActivity(), PreferencesUtils.SORT_BY_DATE);
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.action_sort_alphabetically)
+                .setChecked(
+                        PreferencesUtils
+                                .getApkFilesListSortOrder(getActivity()) == PreferencesUtils.SORT_ALPHABETICALLY);
+        menu.findItem(R.id.action_sort_by_date)
+                .setChecked(
+                        PreferencesUtils
+                                .getApkFilesListSortOrder(getActivity()) == PreferencesUtils.SORT_BY_DATE);
     }
 }

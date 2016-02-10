@@ -1,10 +1,13 @@
 package com.jonathan.apkextractor.loader;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.jonathan.apkextractor.observer.ApkFilesObserver;
+import com.jonathan.apkextractor.observer.ApkFilesSortOrderObserver;
 import com.jonathan.apkextractor.util.FileUtils;
+import com.jonathan.apkextractor.util.PreferencesUtils;
 
 import java.io.File;
 import java.text.Collator;
@@ -17,6 +20,7 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
 
     private List<ApkFile> mApkFiles;
     private ApkFilesObserver mObserver;
+    private ApkFilesSortOrderObserver mOrderObserver;
 
     public ApkFilesListLoader(Context context) {
         super(context);
@@ -42,8 +46,10 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
             apkFiles.add(new ApkFile(this, apkFile.getPath()));
         }
 
-        //Sort the APKs
-        Collections.sort(apkFiles, ALPHA_COMPARATOR);
+        if (PreferencesUtils.getApkFilesListSortOrder(getContext()) == PreferencesUtils.SORT_ALPHABETICALLY) {
+            //Sort the APKs
+            Collections.sort(apkFiles, ALPHA_COMPARATOR);
+        }
 
         return apkFiles;
     }
@@ -86,6 +92,12 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         }
         mObserver.startWatching();
 
+        if (mOrderObserver == null) {
+            mOrderObserver = new ApkFilesSortOrderObserver(this);
+        }
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(mOrderObserver);
+
         if (takeContentChanged() || mApkFiles == null) {
             // When the observer detects a change, it should call onContentChanged()
             // on the Loader, which will cause the next call to takeContentChanged()
@@ -120,6 +132,10 @@ public class ApkFilesListLoader extends AsyncTaskLoader<List<ApkFile>> {
         // The Loader is being reset, so we should stop monitoring for changes.
         if (mObserver != null) {
             mObserver.stopWatching();
+        }
+        if (mOrderObserver != null) {
+            PreferenceManager.getDefaultSharedPreferences(getContext())
+                    .unregisterOnSharedPreferenceChangeListener(mOrderObserver);
         }
     }
 

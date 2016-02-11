@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -159,14 +160,14 @@ public class ApkFilesListFragment extends Fragment implements ApkFilesAdapter.On
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        menu.findItem(R.id.action_sort_alphabetically)
-                .setChecked(
-                        PreferencesUtils
-                                .getApkFilesListSortOrder(getActivity()) == PreferencesUtils.SORT_ALPHABETICALLY);
-        menu.findItem(R.id.action_sort_by_date)
-                .setChecked(
-                        PreferencesUtils
-                                .getApkFilesListSortOrder(getActivity()) == PreferencesUtils.SORT_BY_DATE);
+        int sortType = PreferencesUtils.getApkFilesListSortOrder(getActivity());
+        switch (sortType) {
+            case PreferencesUtils.SORT_ALPHABETICALLY:
+                menu.findItem(R.id.action_sort_alphabetically).setChecked(true);
+                break;
+            case PreferencesUtils.SORT_BY_DATE:
+                menu.findItem(R.id.action_sort_by_date).setChecked(true);
+                break;
+        }
     }
 }

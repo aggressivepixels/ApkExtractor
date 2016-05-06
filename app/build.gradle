@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.jonathan.apkextractor"
+        applicationId "com.android.apk.extractor"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 11

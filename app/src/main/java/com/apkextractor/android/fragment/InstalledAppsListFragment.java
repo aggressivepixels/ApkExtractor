@@ -20,10 +20,10 @@ import android.widget.TextView;
 import com.apkextractor.android.R;
 import com.apkextractor.android.adapter.AppsInfoAdapter;
 import com.apkextractor.android.loader.AppEntry;
+import com.apkextractor.android.loader.AppListLoader;
 import com.apkextractor.android.util.ListStateManager;
 import com.apkextractor.android.util.PreferencesUtils;
 import com.apkextractor.android.util.ViewUtils;
-import com.apkextractor.android.loader.AppListLoader;
 
 import java.util.List;
 import java.util.Locale;

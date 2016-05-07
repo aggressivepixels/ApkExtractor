@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextAppearance.AppTheme.SectionHeader" parent="TextAppearance.AppCompat.Title">
+    <style name="TextAppearance.ApkExtractor.SectionHeader" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 </resources>

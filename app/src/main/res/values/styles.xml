@@ -1,33 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Theme.ApkExtractor" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="alertDialogTheme">@style/AppCompatAlertDialogStyle</item>
+        <item name="alertDialogTheme">@style/Theme.ApkExtractor.Dialog.Alert</item>
         <item name="android:windowBackground">@color/windowBackground</item>
-        <item name="popupMenuStyle">@style/PopupMenu</item>
+        <item name="popupMenuStyle">@style/Widget.ApkExtractor.PopupMenu</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="Theme.ApkExtractor.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme.NoActionBar">
+    <style name="Theme.ApkExtractor.Home" parent="Theme.ApkExtractor.NoActionBar">
         <item name="android:windowTitleSize">@dimen/toolbar_placeholder_height</item>
         <item name="android:windowTitleStyle">@style/PlaceholderWindowTitle</item>
         <item name="android:windowTitleBackgroundStyle">@style/PlaceholderWindowTitleBackground</item>
         <item name="android:windowNoTitle">false</item>
     </style>
 
+    <!-- Set the theme for the window title -->
     <style name="PlaceholderWindowTitleBackground">
         <item name="android:background">?colorPrimary</item>
     </style>
 
-    <!-- Set the theme for the window title -->
     <style name="PlaceholderWindowTitle">
         <item name="android:singleLine">true</item>
         <item name="android:textAppearance">@style/PlaceholderWindowTitleText</item>
@@ -37,21 +35,21 @@
         <item name="android:textColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="ThemeOverlay.ApkExtractor.AppBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ThemeOverlay.ApkExtractor.Popup" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="Theme.ApkExtractor.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="PopupMenu" parent="@style/Widget.AppCompat.Light.PopupMenu">
+    <style name="Widget.ApkExtractor.PopupMenu" parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="overlapAnchor">true</item>
     </style>
 
-    <style name="TextAppearance.AppTheme.SectionHeader" parent="TextAppearance.AppCompat.Title">
+    <style name="TextAppearance.ApkExtractor.SectionHeader" parent="TextAppearance.AppCompat.Title">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:textColorSecondary</item>
     </style>

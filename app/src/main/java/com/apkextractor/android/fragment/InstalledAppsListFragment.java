@@ -15,90 +15,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.apkextractor.android.R;
-import com.apkextractor.android.adapter.AppsInfoAdapter;
+import com.apkextractor.android.adapter.InstalledAppsAdapter;
 import com.apkextractor.android.loader.AppEntry;
 import com.apkextractor.android.loader.AppListLoader;
 import com.apkextractor.android.util.ListStateManager;
 import com.apkextractor.android.util.PreferencesUtils;
 import com.apkextractor.android.util.ViewUtils;
+import com.tonicartos.superslim.LayoutManager;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapter.OnAppInteractionListener, LoaderManager.LoaderCallbacks<List<AppEntry>> {
+public class InstalledAppsListFragment extends Fragment implements InstalledAppsAdapter.OnAppClickListener, LoaderManager.LoaderCallbacks<List<AppEntry>> {
 
     private RecyclerView mRecyclerView;
-    private AppsInfoAdapter mAdapter;
+    private InstalledAppsAdapter mAdapter;
     private ListStateManager mStateManager;
-    private TextView mStickySection;
-
-    private RecyclerView.OnScrollListener mStickySectionScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            if (recyclerView != null && recyclerView.getChildCount() > 2) {
-
-                View firstVisibleView = recyclerView.getChildAt(0);
-                View secondVisibleView = recyclerView.getChildAt(1);
-
-                TextView firstItemSection = ((AppsInfoAdapter.AppViewHolder) recyclerView.getChildViewHolder(firstVisibleView)).sectionHeader;
-                TextView secondItemSection = ((AppsInfoAdapter.AppViewHolder) recyclerView.getChildViewHolder(secondVisibleView)).sectionHeader;
-
-                int visibleItemCount = recyclerView.getChildCount();
-                int firstVisibleItemPosition = recyclerView.getChildAdapterPosition(firstVisibleView);
-                int secondVisibleItemPosition = firstVisibleItemPosition + 1;
-                int lastVisibleItemPosition = firstVisibleItemPosition + visibleItemCount;
-
-                mStickySection.setText(firstItemSection.getText().toString().toUpperCase(Locale.getDefault()));
-                mStickySection.setVisibility(TextView.VISIBLE);
-
-                if (dy > 0 && secondVisibleItemPosition <= lastVisibleItemPosition) {
-                    if (isSectionHeader(firstItemSection.getText().toString(), secondItemSection.getText().toString())) {
-                        firstItemSection.setVisibility(View.VISIBLE);
-                        secondItemSection.setVisibility(View.VISIBLE);
-                        mStickySection.setVisibility(View.INVISIBLE);
-                    } else {
-                        firstItemSection.setVisibility(View.INVISIBLE);
-                        mStickySection.setVisibility(View.VISIBLE);
-                    }
-                } else {
-                    if (secondVisibleItemPosition <= lastVisibleItemPosition) {
-                        firstItemSection.setVisibility(TextView.INVISIBLE);
-                        if ((isSectionHeader(firstItemSection.getText().toString(), secondItemSection.getText().toString()) || ((!firstItemSection.getText().toString().equals(secondItemSection.getText().toString()))) && isSectionHeader(firstItemSection.getText().toString(), secondItemSection.getText().toString()))) {
-                            mStickySection.setVisibility(TextView.INVISIBLE);
-                            firstItemSection.setVisibility(TextView.VISIBLE);
-                            secondItemSection.setVisibility(TextView.VISIBLE);
-                        } else {
-                            secondItemSection.setVisibility(TextView.INVISIBLE);
-                        }
-                    }
-                }
-            } else {
-                mStickySection.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
-
-        public boolean isSectionHeader(String text1, String text2) {
-            return !text1
-                    .substring(0, 1)
-                    .toUpperCase(Locale.getDefault())
-                    .equals(text2
-                            .substring(0, 1)
-                            .toUpperCase(Locale.getDefault()));
-        }
-    };
 
     public InstalledAppsListFragment() {
         // Required empty public constructor
@@ -115,7 +51,7 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mAdapter = new AppsInfoAdapter(getActivity(), null, this);
+        mAdapter = new InstalledAppsAdapter(getActivity(), this);
     }
 
     @Override
@@ -125,16 +61,14 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
         mRecyclerView = ViewUtils.findViewById(view, R.id.recycler_view);
         View loading = ViewUtils.findViewById(view, android.R.id.progress);
         View empty = ViewUtils.findViewById(view, android.R.id.empty);
-        mStickySection = ViewUtils.findViewById(view, R.id.app_section_header);
 
         mStateManager = new ListStateManager(mRecyclerView, loading, empty);
         mStateManager.setState(ListStateManager.STATE_LOADING);
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.addOnScrollListener(mStickySectionScrollListener);
     }
 
     @Override
@@ -179,7 +113,6 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     @Override
     public Loader<List<AppEntry>> onCreateLoader(int id, Bundle args) {
         mStateManager.setState(ListStateManager.STATE_LOADING);
-        ViewUtils.fadeOut(mStickySection);
         return new AppListLoader(getActivity(), PreferencesUtils.showSystemApps(getActivity()));
     }
 
@@ -194,7 +127,7 @@ public class InstalledAppsListFragment extends Fragment implements AppsInfoAdapt
     }
 
     private void onAppsInfoLoaded(List<AppEntry> appsInfo) {
-        mAdapter.setData(appsInfo);
+        mAdapter.setApps(appsInfo);
         mRecyclerView.scrollToPosition(0);
         if (appsInfo != null && appsInfo.size() > 0) {
             mStateManager.setState(ListStateManager.STATE_NORMAL);

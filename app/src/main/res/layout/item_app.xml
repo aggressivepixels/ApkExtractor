@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
-    <include layout="@layout/installed_apps_section_header" />
-
     <RelativeLayout
         android:id="@+id/app_container"
         android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package com.apkextractor.android.installedapps.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -92,7 +91,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.View
         int sectionFirstPosition = 0;
         for (int i = 0; i < apps.size(); i++) {
             String header = apps.get(i).getLabel().substring(0, 1);
-            if (!TextUtils.equals(lastHeader, header)) {
+            if (!lastHeader.equalsIgnoreCase(header)) {
                 // Insert new header view and update section data.
                 sectionFirstPosition = i + headerCount;
                 lastHeader = header;
@@ -101,6 +100,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
             items.add(new SlimItem(apps.get(i), sectionFirstPosition));
         }
+        notifyDataSetChanged();
     }
 
     public interface OnAppClickListener {

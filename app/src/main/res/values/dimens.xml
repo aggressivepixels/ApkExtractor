@@ -3,5 +3,6 @@
     <!-- 56 + 48 -->
     <dimen name="toolbar_placeholder_height">104dp</dimen>
 
+    <!-- Normal spacing applied between components -->
     <dimen name="normal_spacing">16dp</dimen>
 </resources>

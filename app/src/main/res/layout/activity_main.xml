@@ -2,14 +2,12 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.apkextractor.android.activity.MainActivity">
+    tools:context="com.apkextractor.android.main.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:id="@+id/app_bar_layout"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.ApkExtractor.AppBar">
 
@@ -21,12 +19,15 @@
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:popupTheme="@style/ThemeOverlay.ApkExtractor.Popup" />
 
+        <!-- The SimpleFragmentPagerAdapter takes care of RTL layouts,
+             that's why the TabLayout's direction is always LTR. -->
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layoutDirection="ltr"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/white" />
+            android:layoutDirection="ltr"
+            app:tabIndicatorColor="@android:color/white"
+            tools:ignore="UnusedAttribute" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -41,6 +42,8 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <!-- Fake shadow for pre-Lollipop devices.
+             TODO: Remove it from the layout in Lollipop+ to reduce the view number. -->
         <View
             android:layout_width="match_parent"
             android:layout_height="3dp"

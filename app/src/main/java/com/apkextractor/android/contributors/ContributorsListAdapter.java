@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.apkextractor.android.R;
-import com.apkextractor.android.util.ViewUtils;
+import com.apkextractor.android.common.utils.ViewUtils;
 
 import java.util.List;
 

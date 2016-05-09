@@ -2,36 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layoutDirection="locale"
     android:layout_height="72dp"
+    android:background="?selectableItemBackground"
+    android:layoutDirection="locale"
     tools:ignore="UnusedAttribute">
 
-    <RelativeLayout
-        android:id="@+id/app_container"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:background="?selectableItemBackground"
-        android:padding="16dp">
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="?listPreferredItemPaddingRight"
+        android:layout_marginStart="?listPreferredItemPaddingRight"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        tools:src="@mipmap/ic_launcher" />
 
-        <ImageView
-            android:id="@+id/app_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginEnd="?listPreferredItemPaddingRight"
-            android:layout_marginRight="?listPreferredItemPaddingRight"
-            android:contentDescription="@null"
-            android:scaleType="fitXY"
-            tools:src="@mipmap/ic_launcher" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="?listPreferredItemPaddingLeft"
+        android:layout_marginRight="?listPreferredItemPaddingRight"
+        android:gravity="start"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded">
 
         <TextView
             android:id="@+id/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
             android:ellipsize="marquee"
-            android:gravity="start"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="?android:attr/textColorPrimary"
@@ -41,15 +42,12 @@
             android:id="@+id/app_package"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/app_name"
-            android:layout_toEndOf="@id/app_icon"
-            android:layout_toRightOf="@id/app_icon"
             android:ellipsize="marquee"
-            android:gravity="end"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="?android:attr/textColorSecondary"
             tools:text="com.apkextractor.android" />
+    </LinearLayout>
 
-    </RelativeLayout>
+
 </LinearLayout>

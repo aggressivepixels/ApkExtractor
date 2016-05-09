@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
+    android:layoutDirection="locale"
+    android:layout_height="72dp"
+    tools:ignore="UnusedAttribute">
 
     <RelativeLayout
         android:id="@+id/app_container"

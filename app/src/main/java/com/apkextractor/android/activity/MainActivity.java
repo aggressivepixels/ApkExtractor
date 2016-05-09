@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -23,10 +21,12 @@ import android.view.Window;
 import com.apkextractor.android.AppManager;
 import com.apkextractor.android.Common;
 import com.apkextractor.android.R;
+import com.apkextractor.android.adapter.SimpleFragmentPagerAdapter;
 import com.apkextractor.android.fragment.ApkFilesListFragment;
 import com.apkextractor.android.fragment.InstalledAppsListFragment;
 import com.apkextractor.android.util.FileUtils;
 import com.apkextractor.android.util.PermissionHelper;
+import com.apkextractor.android.util.RtlUtils;
 import com.apkextractor.android.util.Utils;
 import com.apkextractor.android.util.ViewUtils;
 
@@ -50,36 +50,16 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = ViewUtils.findViewById(this, R.id.tab_layout);
-
         ViewPager viewPager = ViewUtils.findViewById(this, R.id.view_pager);
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                switch (position) {
-                    case 0:
-                        return new InstalledAppsListFragment();
-                    case 1:
-                        return new ApkFilesListFragment();
-                }
-                return null;
-            }
 
-            @Override
-            public int getCount() {
-                return 2;
-            }
+        SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new InstalledAppsListFragment(), getResources().getString(R.string.tab_installed));
+        adapter.addFragment(new ApkFilesListFragment(), getResources().getString(R.string.backup));
+        viewPager.setAdapter(adapter);
 
-            @Override
-            public CharSequence getPageTitle(int position) {
-                switch (position) {
-                    case 0:
-                        return getResources().getString(R.string.tab_installed);
-                    case 1:
-                        return getResources().getString(R.string.backup);
-                }
-                return super.getPageTitle(position);
-            }
-        });
+        if (RtlUtils.isRtl()) {
+            viewPager.setCurrentItem(adapter.getCount() - 1);
+        }
 
         tabLayout.setupWithViewPager(viewPager);
     }

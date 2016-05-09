@@ -1,7 +1,6 @@
 package com.apkextractor.android.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,18 +8,16 @@ import android.view.ViewGroup;
 
 import com.apkextractor.android.R;
 import com.apkextractor.android.loader.AppEntry;
-import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import com.tonicartos.superslim.GridSLM;
 import com.tonicartos.superslim.LinearSLM;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * @author Jonathan Hernández
  */
-public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements FastScrollRecyclerView.SectionedAdapter {
+public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     //View types that this Adapter can handle
     private static final int VIEW_TYPE_APP = 1;
@@ -68,9 +65,9 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Object data = items.get(position).getData();
-        if (data instanceof String && holder instanceof HeaderViewHolder) {
+        if (holder instanceof HeaderViewHolder) {
             ((HeaderViewHolder) holder).setText((String) data);
-        } else if (data instanceof AppEntry && holder instanceof AppViewHolder) {
+        } else if (holder instanceof AppViewHolder) {
             ((AppViewHolder) holder).bindApp((AppEntry) data);
         }
         final GridSLM.LayoutParams layoutParams = GridSLM.LayoutParams.from(holder.itemView.getLayoutParams());
@@ -86,6 +83,9 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public void setApps(List<AppEntry> apps) {
         items.clear();
+        if (apps == null) {
+            return;
+        }
         //Insert headers into list of items.
         String lastHeader = "";
         int headerCount = 0;
@@ -101,18 +101,6 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
             items.add(new SlimItem(apps.get(i), sectionFirstPosition));
         }
-    }
-
-    @NonNull
-    @Override
-    public String getSectionName(int position) {
-        Object data = items.get(position).getData();
-        if (data instanceof String) {
-            return ((String) data).substring(0, 1).toUpperCase(Locale.getDefault());
-        } else if (data instanceof AppEntry) {
-            return ((AppEntry) data).getLabel().substring(0, 1).toUpperCase(Locale.getDefault());
-        }
-        return "";
     }
 
     public interface OnAppClickListener {

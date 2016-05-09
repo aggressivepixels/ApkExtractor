@@ -28,6 +28,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.3.0'
 
     //RecyclerView related
-    compile 'com.simplecityapps:recyclerview-fastscroll:1.0.6'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.tonicartos:superslim:0.4.13'
 }

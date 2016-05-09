@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -62,7 +61,10 @@ public class InstalledAppsListFragment extends Fragment implements InstalledApps
         View loading = ViewUtils.findViewById(view, android.R.id.progress);
         View empty = ViewUtils.findViewById(view, android.R.id.empty);
 
-        mStateManager = new ListStateManager(mRecyclerView, loading, empty);
+        mStateManager = new ListStateManager(
+                mRecyclerView,
+                loading,
+                empty);
         mStateManager.setState(ListStateManager.STATE_LOADING);
 
         mRecyclerView.setAdapter(mAdapter);

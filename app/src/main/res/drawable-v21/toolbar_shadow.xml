@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- In Lollipop the shadow is handled by the system,
-     that's why its an empty shape. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" />

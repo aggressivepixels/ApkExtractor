@@ -1,6 +1,7 @@
 package com.apkextractor.android.main;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -12,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +33,8 @@ import com.apkextractor.android.installedapps.InstalledAppsListFragment;
 
 import java.io.File;
 import java.io.IOException;
+
+import me.oriley.vista.VistaViewFactoryHelper;
 
 public class MainActivity extends PermissionHelperActivity implements AppManager {
 
@@ -67,6 +71,16 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
         return true;
     }
 
+    //The Activity registers itself to support widget tinting and blah blah in API 21-.
+    //I use that to inject the Vista Views without using another LayoutInflater.Factory.
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        View view = VistaViewFactoryHelper.onCreateView(name, context, attrs);
+        if (view != null) {
+            return view;
+        }
+        return super.onCreateView(name, context, attrs);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

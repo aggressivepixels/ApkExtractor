@@ -12,7 +12,8 @@
         android:clipToPadding="false"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        app:vistaEdgeEffectColor="?colorPrimary" />
 
     <!-- TODO: Improve the empty view and make it show a button to the installed apps. -->
     <TextView

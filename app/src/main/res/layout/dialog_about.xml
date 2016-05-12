@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/divider_height"
         android:paddingTop="@dimen/divider_height"
-        android:scrollbars="vertical"
-        app:vistaEdgeEffectColor="?colorPrimary" />
+        android:scrollbars="vertical" />
 
     <View
         android:id="@+id/about_top_divider"

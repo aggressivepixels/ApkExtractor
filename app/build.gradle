@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId 'com.apkextractor.android'
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 11
         versionName "0.5.5"
@@ -19,9 +19,7 @@ android {
     productFlavors {
     }
 }
-repositories {
-    maven { url "https://jitpack.io" }
-}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -32,5 +30,4 @@ dependencies {
     //RecyclerView related
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.tonicartos:superslim:0.4.13'
-    compile 'com.github.oriley-me:vista:0.3.1'
 }

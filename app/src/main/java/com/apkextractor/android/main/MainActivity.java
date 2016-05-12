@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.apkextractor.android.R;
+import com.apkextractor.android.about.AboutDialogFragment;
 import com.apkextractor.android.backedupapps.BackedUpAppsListFragment;
 import com.apkextractor.android.common.Common;
 import com.apkextractor.android.common.activities.PermissionHelperActivity;
@@ -90,7 +91,7 @@ public class MainActivity extends PermissionHelperActivity implements AppManager
             return true;
         } else*/
         if (id == R.id.action_about) {
-            Utils.showAboutDialog(this);
+            AboutDialogFragment.newInstance().show(getSupportFragmentManager(), "AboutDialogFragment");
             return true;
         }
         return super.onOptionsItemSelected(item);

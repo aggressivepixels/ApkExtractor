@@ -10,19 +10,25 @@ import com.apkextractor.android.common.utils.PermissionHelper;
 /**
  * Simple {@link AppCompatActivity} that has a {@link PermissionHelper} instance and
  * calls all the necessary methods to make it work.
- * To get the {@link PermissionHelper} instance just call {@code getPermissionHelper()}.
+ * To get the {@link PermissionHelper} instance just call {@link PermissionHelperActivity#getPermissionHelper()}.
  */
-public class PermissionHelperActivity extends AppCompatActivity{
+public class PermissionHelperActivity extends AppCompatActivity {
 
     //The actual PermissionHelper
     private PermissionHelper mPermissionHelper;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPermissionHelper = PermissionHelper.getInstance(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         mPermissionHelper.onRequestPermissionResult(requestCode, permissions, grantResults);

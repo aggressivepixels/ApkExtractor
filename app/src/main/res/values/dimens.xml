@@ -5,4 +5,7 @@
 
     <!-- Normal spacing applied between components -->
     <dimen name="normal_spacing">16dp</dimen>
+
+    <!-- Default divider height -->
+    <dimen name="divider_height">1px</dimen>
 </resources>

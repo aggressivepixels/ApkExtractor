@@ -1,4 +1,4 @@
-package com.apkextractor.android.contributors;
+package com.apkextractor.android.about;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -13,11 +13,19 @@ import com.apkextractor.android.R;
 
 /**
  * Simple {@link DialogFragment} subclass that shows the open sources licences for the app.
+ *
  * @author Jonathan Hernández
  */
 public class LicensesDialogFragment extends DialogFragment {
 
     private static final String LICENSES_FILE_PATH = "file:///android_asset/open_source_licenses.html";
+
+    /**
+     * @return A new {@link LicensesDialogFragment}.
+     */
+    public static LicensesDialogFragment newInstance() {
+        return new LicensesDialogFragment();
+    }
 
     @SuppressLint("InflateParams")
     @NonNull
@@ -31,6 +39,4 @@ public class LicensesDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, null)
                 .create();
     }
-
-
 }

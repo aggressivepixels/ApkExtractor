@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/normal_spacing_divider"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/normal_spacing"
+    android:paddingTop="@dimen/normal_spacing"
+    android:showDividers="middle">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher_large" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="?listPreferredItemPaddingLeft"
+        android:layout_marginRight="?listPreferredItemPaddingRight"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="?listPreferredItemPaddingLeft"
+        android:layout_marginRight="?listPreferredItemPaddingRight"
+        android:gravity="center"
+        android:text="@string/app_description"
+        tools:ignore="RtlHardcoded" />
+</LinearLayout>

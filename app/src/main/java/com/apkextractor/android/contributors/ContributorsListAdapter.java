@@ -17,11 +17,11 @@ import java.util.List;
 public class ContributorsListAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Contributor> mContributors;
+    private List<Contribution> mContributors;
 
-    public ContributorsListAdapter(Context context, List<Contributor> contributors) {
+    public ContributorsListAdapter(Context context, List<Contribution> contributions) {
         mContext = context;
-        mContributors = contributors;
+        mContributors = contributions;
     }
 
     @Override
@@ -44,13 +44,13 @@ public class ContributorsListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(mContext).inflate(R.layout.item_contributor, parent, false);
 
-        ViewUtils.setText(convertView, mContributors.get(position).getTitle(), R.id.contributor_contribution);
-        ViewUtils.setText(convertView, mContributors.get(position).getPerson(), R.id.contributor_name);
+        ViewUtils.setText(convertView, mContributors.get(position).getName(), R.id.contribution_name);
+        ViewUtils.setText(convertView, mContributors.get(position).getContributorName(), R.id.contribution_contributor_name);
 
-        convertView.findViewById(R.id.contributor_google_plus_button).setOnClickListener(new View.OnClickListener() {
+        convertView.findViewById(R.id.contribution_contributor_link_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mContributors.get(position).getGooglePlusUrl())));
+                mContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(mContributors.get(position).getContributorLink())));
             }
         });
         return convertView;

@@ -12,7 +12,8 @@ import android.webkit.WebView;
 import com.apkextractor.android.R;
 
 /**
- * Simple {@link AlertDialog} subclass that shows the open sources licences for the app.
+ * Simple {@link DialogFragment} subclass that shows the open sources licences for the app.
+ * @author Jonathan Hernández
  */
 public class LicensesDialogFragment extends DialogFragment {
 
@@ -25,7 +26,7 @@ public class LicensesDialogFragment extends DialogFragment {
         WebView view = (WebView) LayoutInflater.from(getActivity()).inflate(R.layout.dialog_licenses, null);
         view.loadUrl(LICENSES_FILE_PATH);
         return new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.about_button_licenses))
+                .setTitle(getString(R.string.licenses_title))
                 .setView(view)
                 .setPositiveButton(android.R.string.ok, null)
                 .create();

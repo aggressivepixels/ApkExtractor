@@ -18,20 +18,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.apkextractor.android.main.AppManager;
 import com.apkextractor.android.R;
 import com.apkextractor.android.common.utils.ViewUtils;
+import com.apkextractor.android.main.AppManager;
 
+/**
+ * {@link DialogFragment} that shows information provided by an
+ * {@link ApplicationInfo}. It also shows options to backup, share
+ * and launch it (if the app provides a launch {@link Intent}).
+ */
 public class AppInfoDialogFragment extends DialogFragment {
 
-    private static final String EXTRA_APPLICATION_INFO = "com.jonathan.apkextractor.fragment.EXTRA_APPLICATION_INFO";
+    private static final String EXTRA_APPLICATION_INFO = "com.jonathan.apkextractor.appinfo.EXTRA_APPLICATION_INFO";
 
-    private ApplicationInfo mApplicationInfo;
-    private PackageInfo mPackageInfo;
+    private ApplicationInfo applicationInfo;
+    private PackageInfo packageInfo;
 
-    private AppManager mAppManager;
+    private AppManager appManager;
 
-    public static AppInfoDialogFragment getInstance(ApplicationInfo applicationInfo) {
+    public static AppInfoDialogFragment newInstance(ApplicationInfo applicationInfo) {
         AppInfoDialogFragment fragment = new AppInfoDialogFragment();
 
         Bundle args = new Bundle();
@@ -46,7 +51,7 @@ public class AppInfoDialogFragment extends DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mAppManager = (AppManager) activity;
+            appManager = (AppManager) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement AppManager");
@@ -58,11 +63,12 @@ public class AppInfoDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mApplicationInfo = getArguments().getParcelable(EXTRA_APPLICATION_INFO);
+        applicationInfo = getArguments().getParcelable(EXTRA_APPLICATION_INFO);
         try {
-            mPackageInfo = getActivity().getPackageManager().getPackageInfo(mApplicationInfo.packageName, 0);
+            packageInfo = getActivity().getPackageManager().getPackageInfo(applicationInfo.packageName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+            //TODO: Show something better than a Toast.
             Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.share_error_getting_app_info), Toast.LENGTH_SHORT).show();
         }
     }
@@ -71,23 +77,33 @@ public class AppInfoDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        if (mPackageInfo == null && mApplicationInfo == null) {
-            return super.onCreateDialog(savedInstanceState);
+        if (packageInfo == null || applicationInfo == null) {
+            throw new IllegalArgumentException(
+                    "Neither the ApplicationInfo or the " +
+                            "PackageInfo object can be null.");
         }
-
-        LayoutInflater inflater = LayoutInflater.from(new ContextThemeWrapper(getActivity(), R.style.Theme_ApkExtractor_Dialog_Alert));
+        //For some reason, if I use the default theme for the AlertDialog,
+        //it seems to ignore "?listPreferredItemPaddingLeft" and related
+        //attributes, that's why I'm using the ContextThemeWrapper to
+        //be sure it doesn't ignores it.
+        LayoutInflater inflater = LayoutInflater.from(
+                new ContextThemeWrapper(
+                        getActivity(),
+                        R.style.Theme_ApkExtractor_Dialog_Alert));
 
         View view = inflater.inflate(
                 R.layout.dialog_app_info, null);
 
-        ViewUtils.setText(view, mPackageInfo.packageName, R.id.app_info_package);
-        ViewUtils.setText(view, mPackageInfo.versionName, R.id.app_info_version);
+        ViewUtils.setText(view, packageInfo.packageName, R.id.app_info_package);
+        ViewUtils.setText(view, packageInfo.versionName, R.id.app_info_version);
 
-        final Intent launchIntent = getActivity().getPackageManager().getLaunchIntentForPackage(mPackageInfo.packageName);
+        PackageManager packageManager =  getActivity().getPackageManager();
+
+        final Intent launchIntent = packageManager.getLaunchIntentForPackage(packageInfo.packageName);
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity())
-                .setIcon(mApplicationInfo.loadIcon(getActivity().getPackageManager()))
-                .setTitle(mApplicationInfo.loadLabel(getActivity().getPackageManager()))
+                .setIcon(applicationInfo.loadIcon(packageManager))
+                .setTitle(applicationInfo.loadLabel(packageManager))
                 .setView(view);
 
         if (launchIntent != null) {
@@ -102,12 +118,12 @@ public class AppInfoDialogFragment extends DialogFragment {
         dialog.setPositiveButton(R.string.app_info_button_backup, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mAppManager.backupApk(mApplicationInfo);
+                appManager.backupApk(applicationInfo);
             }
         }).setNegativeButton(R.string.app_info_button_share, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mAppManager.shareApk(mApplicationInfo, true);
+                appManager.shareApk(applicationInfo, true);
             }
         });
 

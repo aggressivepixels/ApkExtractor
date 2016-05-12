@@ -110,7 +110,7 @@ public class InstalledAppsListFragment extends Fragment implements InstalledApps
 
     @Override
     public void onAppClick(AppEntry appInfo) {
-        AppInfoDialogFragment.getInstance(appInfo.getApplicationInfo()).show(getFragmentManager(), "ApplicationInfoDialog");
+        AppInfoDialogFragment.newInstance(appInfo.getApplicationInfo()).show(getFragmentManager(), "ApplicationInfoDialog");
     }
 
     @Override

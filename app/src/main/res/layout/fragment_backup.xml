@@ -14,6 +14,7 @@
         android:paddingTop="8dp"
         android:scrollbars="vertical" />
 
+    <!-- TODO: Improve the empty view and make it show a button to the installed apps. -->
     <TextView
         android:id="@android:id/empty"
         android:layout_width="wrap_content"

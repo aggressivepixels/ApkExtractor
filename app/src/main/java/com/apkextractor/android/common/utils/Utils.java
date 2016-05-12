@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.apkextractor.android.R;
-import com.apkextractor.android.contributors.Contributor;
+import com.apkextractor.android.contributors.Contribution;
 import com.apkextractor.android.contributors.ContributorsListAdapter;
 import com.apkextractor.android.contributors.LinearLayoutAdapterContainer;
 import com.apkextractor.android.contributors.LicensesDialogFragment;
@@ -72,23 +72,23 @@ public class Utils {
         }
     }
 
-    private static List<Contributor> getContributorsList(Context context) {
-        List<Contributor> contributors = new ArrayList<>();
+    private static List<Contribution> getContributorsList(Context context) {
+        List<Contribution> contributions = new ArrayList<>();
 
         //Developer (Me! :D)
-        contributors.add(
-                new Contributor(
+        contributions.add(
+                new Contribution(
                         context.getString(R.string.contributors_app_developer),
                         context.getString(R.string.contributors_app_developer_name),
                         context.getString(R.string.contributors_app_developer_g_plus_url)));
 
         //Icon designer (Joaquín)
-        contributors.add(
-                new Contributor(
+        contributions.add(
+                new Contribution(
                         context.getString(R.string.contributors_icon_designer),
                         context.getString(R.string.contributors_icon_designer_name),
                         context.getString(R.string.contributors_icon_designer_g_plus_url)));
 
-        return contributors;
+        return contributions;
     }
 }

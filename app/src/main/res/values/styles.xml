@@ -52,6 +52,7 @@
     <style name="TextAppearance.ApkExtractor.SectionHeader" parent="TextAppearance.AppCompat.Title">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

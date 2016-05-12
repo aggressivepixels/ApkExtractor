@@ -3,40 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:minHeight="72dp"
     android:gravity="center_vertical"
+    android:minHeight="72dp"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="?listPreferredItemPaddingLeft"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="?listPreferredItemPaddingLeft"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginLeft="?listPreferredItemPaddingLeft"
-        android:layout_marginStart="?listPreferredItemPaddingLeft"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         tools:ignore="InefficientWeight">
 
         <TextView
+            android:id="@+id/contribution_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/contributor_contribution"
-            tools:text="Contribution"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            tools:text="Contribution" />
 
         <TextView
+            android:id="@+id/contribution_contributor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Contributor"
-            android:id="@+id/contributor_name" />
+            tools:text="Contributor" />
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/contributor_google_plus_button"
+        android:id="@+id/contribution_contributor_link_button"
+        style="?actionButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?actionButtonStyle"
         android:src="@drawable/ic_google_plus"
         tools:ignore="ContentDescription" />
 

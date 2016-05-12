@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
+    <!-- TODO: Improve the empty view and make it show a button to Google Play, if installed. -->
     <TextView
         android:id="@android:id/empty"
         android:layout_width="wrap_content"

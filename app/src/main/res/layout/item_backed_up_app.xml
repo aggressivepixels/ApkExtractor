@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    android:gravity="center_vertical"
     android:background="?selectableItemBackground">
 
     <!-- Icon -->
@@ -10,10 +11,8 @@
         android:id="@+id/backed_up_app_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
         tools:src="@mipmap/ic_launcher" />

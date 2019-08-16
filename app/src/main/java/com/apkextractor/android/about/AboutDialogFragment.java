@@ -98,14 +98,12 @@ public class AboutDialogFragment extends DialogFragment {
     private List<Contribution> buildContributionsList() {
         List<Contribution> contributions = new ArrayList<>();
 
-        //Developer (Me! :D)
         contributions.add(
                 new Contribution(
                         getResources().getString(R.string.contributors_app_developer),
                         getResources().getString(R.string.contributors_app_developer_name),
                         getResources().getString(R.string.contributors_app_developer_g_plus_url)));
 
-        //Icon designer (Joaquín)
         contributions.add(
                 new Contribution(
                         getResources().getString(R.string.contributors_icon_designer),
